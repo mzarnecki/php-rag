@@ -4,6 +4,8 @@ use Dotenv\Dotenv;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
+use service\evaluate\CriteriaEvaluator;
+use service\evaluate\TokenBasedSimilarityEvaluator;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
@@ -34,10 +36,11 @@ $pipeline = (new Pipeline(new FingersCrossedProcessor()))
 $response = $pipeline->process($payload);
 
 if (isset($_GET['api'])) {
-    echo json_encode([
+    $resp = [
         'response' => $response,
         'documents' => $payload->getSimilarDocumentsNames()
-    ]);
+    ];
+    echo json_encode($resp);
 } else {
     echo "<h1>RESPONSE:</h1>";
     echo "<br /><br />";
@@ -46,4 +49,21 @@ if (isset($_GET['api'])) {
     echo "<h1>DOCUMENTS:</h1>";
     echo "<br /><br />";
     echo $payload->getRagPrompt();
+}
+
+if (isset($_GET['evaluate'])) {
+    $criteriaEvaluator = new CriteriaEvaluator();
+    $tokenSimilarityEvaluator = new TokenBasedSimilarityEvaluator();
+    $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
+        Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
+        Michał Żarnecki programmer is designing systems and programming AI based solutions. He is also a lecturer.
+        Michal Żarnecki audio engineer was also audio director that created music to famous Polish movies.";
+
+    $resp['evaluation'] = [
+        'ROUGE' => $tokenSimilarityEvaluator->calculateROUGE($compareResp, $response),
+        'BLEU' => $tokenSimilarityEvaluator->calculateBLEU($compareResp, $response),
+        'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response)
+    ];
+
+    error_log(json_encode($resp));
 }

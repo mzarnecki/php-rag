@@ -19,7 +19,8 @@ Abstract class AbstractOllamaAPIClient
     {
         # prepare input
         $input = "Source documents:\n" . $sourceDocuments . "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
-        error_log("Combined RAG prompt: " . $input . PHP_EOL);
+        error_log("Source documents: " . $sourceDocuments . PHP_EOL);
+        error_log("\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n");
         $body = $this->request($input);
 
         $rows = preg_split('/\n/', $body);

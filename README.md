@@ -36,7 +36,7 @@ The application demonstrates an interesting use case of distinguishing between t
 
 ## 🚀 Features
 
-- Multiple LLM support (GPT-4, Claude-3.5, Llama3.2, Mixtral, Gemini2)
+- Multiple LLM support (GPT-4, Claude-3.5, Llama3.2,  Bielik, Gemini2)
 - Vector database for efficient information retrieval
 - Web interface, API endpoints, and CLI access
 - Context-aware response generation
@@ -57,12 +57,12 @@ The application demonstrates an interesting use case of distinguishing between t
     - Copy `.env-sample` to `.env` in `app/src`
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Gemini2
+      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2
       ```
 
 3. **API Configuration**
 
-   #### Local API Options (Mixtral, Llama3.2)
+   #### Local API Options (Mixtral, Llama3.2, Bielik)
     - No API key required (go directly to point 4.)
     - Requires more CPU/RAM
     - GPU recommended for better performance
@@ -141,6 +141,34 @@ Response: These are two different individuals:
 
 ### Detailed Architecture
 ![Detailed Architecture](img/ai_chatbot_llm_rag.jpg)
+
+## Evaluate response
+There are 2 metrics implemented which compare generated answer to expected text.
+They are not the best solution as they are based on tokens appearance comparison.
+- ROUGE
+- BLEU
+
+Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-4o model and ask for 1-5 points evaluation in 5 criteria:
+- relevance: Does the answer address the question accurately ?
+- conciseness: Is the answer free of unnecessary details ?
+- clarity: Is the language clear and understandable ?
+- creativity: Is the response innovative or insightful ?
+- factual_accuracy: Are the facts provided correct ?
+
+```php
+        $criteriaEvaluator = new CriteriaEvaluator();
+        $tokenSimilarityEvaluator = new TokenBasedSimilarityEvaluator();
+        $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
+        Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
+        Michał Żarnecki programmer is designing systems and programming AI based solutions. He is also a lecturer.
+        Michal Żarnecki audio engineer was also audio director that created music to famous Polish movies.";
+
+        $resp['evaluation'] = [
+            'ROUGE' => $tokenSimilarityEvaluator->calculateROUGE($compareResp, $response),
+            'BLEU' => $tokenSimilarityEvaluator->calculateBLEU($compareResp, $response),
+            'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response)
+        ];
+```
 
 ## 🐛 Debugging
 

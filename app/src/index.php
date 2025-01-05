@@ -63,7 +63,7 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <form method="post" action="process.php?api=1">
+    <form method="post" action="process.php?api=1&evaluate=1">
         <label><h1> Find answer in websites database using LLM</h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5">Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer.</textarea>

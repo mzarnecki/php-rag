@@ -20,7 +20,8 @@ final class PromptResolverTest extends TestCase
         $argv[0] = 'What is the result of 2 + 2?';
         $promptResolver = new PromptResolver();
         $prompt = $promptResolver->getPromptFromInput();
-        $this->assertEquals($argv[0], $prompt);
+        $this->assertEquals('You are a helpful assistant that answers questions based on source documents.'
+            . PHP_EOL . $argv[0], $prompt);
     }
 
     public function testPrompt_isProvided_whenPostGiven(): void
@@ -28,6 +29,7 @@ final class PromptResolverTest extends TestCase
         $_POST['prompt'] = 'What is the result of 2 + 2?';
         $promptResolver = new PromptResolver();
         $prompt = $promptResolver->getPromptFromInput();
-        $this->assertEquals($_POST['prompt'], $prompt);
+        $this->assertEquals('You are a helpful assistant that answers questions based on source documents.'
+            . PHP_EOL .$_POST['prompt'], $prompt);
     }
 }

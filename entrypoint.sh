@@ -20,5 +20,9 @@ echo "🔴 Retrieve mxbai embedding model..."
 ollama pull mxbai-embed-large
 echo "🟢 Done!"
 
+echo "🔴 Retrieve Bielik model..."
+ollama pull mwiewior/bielik
+echo "🟢 Done!"
+
 # Wait for Ollama process to finish.
 wait $pid
