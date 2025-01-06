@@ -13,7 +13,7 @@ ollama pull llama3.2
 echo "🟢 Done!"
 
 echo "🔴 Retrieve Mixtral model..."
-ollama pull mixtral
+ollama pull mistral
 echo "🟢 Done!"
 
 echo "🔴 Retrieve mxbai embedding model..."

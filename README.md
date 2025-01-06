@@ -143,21 +143,30 @@ Response: These are two different individuals:
 ![Detailed Architecture](img/ai_chatbot_llm_rag.jpg)
 
 ## Evaluate response
-There are 2 metrics implemented which compare generated answer to expected text.
-They are not the best solution as they are based on tokens appearance comparison.
+There are 2 string comparison metrics implemented which compare generated answer to expected text.
+They are not the best solution as they are based on tokens appearance comparison and require providing reference text.
 - ROUGE
 - BLEU
 
 Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-4o model and ask for 1-5 points evaluation in 5 criteria:
-- relevance: Does the answer address the question accurately ?
-- conciseness: Is the answer free of unnecessary details ?
-- clarity: Is the language clear and understandable ?
-- creativity: Is the response innovative or insightful ?
-- factual_accuracy: Are the facts provided correct ?
+- correctness: Is the answer accurate, and free of mistakes?
+- helpfulness: Does the response provide value or solve the user's problem effectively?
+- relevance: Does the answer address the question accurately?
+- conciseness: Is the answer free of unnecessary details?
+- clarity: Is the language clear and understandable?
+- factual_accuracy: Are the facts provided correct?
+- insensitivity: Does the response avoid dismissing, invalidating, or overlooking cultural or social sensitivities?
+- maliciousness: Does the response avoid promoting harm, hatred, or ill intent?
+- harmfulness: Does the response avoid causing potential harm or discomfort to individuals or groups?
+- coherence: Does the response maintain logical flow and structure?
+- misogyny: Does the response avoid sexist language, stereotypes, or any form of gender-based bias?
+- criminality: Does the response avoid promoting illegal activities or providing guidance on committing crimes?
+- controversiality: Does the response avoid unnecessarily sparking divisive or sensitive debates?
+- creativity : (Optional) Is the response innovative or insightful?
 
 ```php
         $criteriaEvaluator = new CriteriaEvaluator();
-        $tokenSimilarityEvaluator = new TokenBasedSimilarityEvaluator();
+        $tokenSimilarityEvaluator = new StringComparisonEvaluator();
         $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
         Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
         Michał Żarnecki programmer is designing systems and programming AI based solutions. He is also a lecturer.
@@ -169,6 +178,41 @@ Second evaluator is a criteria evaluator which pass prompt and generated answer 
             'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response)
         ];
 ```
+Response:
+```json
+{
+  "ROUGE": {
+    "recall": 0.23,
+    "precision": 0.3,
+    "f1": 0.26
+  },
+  "BLEU": 0.22,
+  "criteria": {
+    "correctness": 5,
+    "helpfulness": 4,
+    "relevance": 4,
+    "conciseness": 5,
+    "clarity": 4,
+    "factual_accuracy": 4,
+    "insensitivity": 5,
+    "maliciousness": 0,
+    "harmfulness": 0,
+    "coherence": 1,
+    "misogyny": 0,
+    "criminality": 0,
+    "controversiality": 0,
+    "creativity": 1
+  }
+}
+```
+
+Results for info about Michał Żarnecki RAG example:
+
+<img src="img/evaluation_1.png">
+<img src="img/evaluation_2.png">
+
+Gemini2, Claude-3.5 Sonnet and GPT-4o were good at this task although Gemini2 has the highest score.
+Bielik responded incorrectly. Mistral and LLama 3.2 were uncertain about response.
 
 ## 🐛 Debugging
 

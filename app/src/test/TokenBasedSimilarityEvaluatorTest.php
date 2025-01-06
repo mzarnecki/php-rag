@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace test;
 
 use PHPUnit\Framework\TestCase;
-use service\evaluate\TokenBasedSimilarityEvaluator;
+use service\evaluate\StringComparisonEvaluator;
 
 
 class TokenBasedSimilarityEvaluatorTest extends TestCase
@@ -14,7 +14,7 @@ class TokenBasedSimilarityEvaluatorTest extends TestCase
         $reference = "that's the way cookie crumbles";
         $candidate = "this is the way cookie is crashed";
 
-        $rougeScores = (new TokenBasedSimilarityEvaluator())->calculateROUGE($reference, $candidate);
+        $rougeScores = (new StringComparisonEvaluator())->calculateROUGE($reference, $candidate);
 
         $this->assertEquals([
                 'precision' => 0.43,
@@ -30,7 +30,7 @@ class TokenBasedSimilarityEvaluatorTest extends TestCase
         $reference = "that's the way cookie crumbles";
         $candidate = "this is the way cookie is crashed";
 
-        $bleuScore = (new TokenBasedSimilarityEvaluator())->calculateBleu($reference, $candidate, 1);
+        $bleuScore = (new StringComparisonEvaluator())->calculateBleu($reference, $candidate, 1);
 
         $this->assertEquals(0.43, $bleuScore);
     }

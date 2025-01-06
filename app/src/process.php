@@ -5,7 +5,7 @@ use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
 use service\evaluate\CriteriaEvaluator;
-use service\evaluate\TokenBasedSimilarityEvaluator;
+use service\evaluate\StringComparisonEvaluator;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
@@ -53,7 +53,7 @@ if (isset($_GET['api'])) {
 
 if (isset($_GET['evaluate'])) {
     $criteriaEvaluator = new CriteriaEvaluator();
-    $tokenSimilarityEvaluator = new TokenBasedSimilarityEvaluator();
+    $tokenSimilarityEvaluator = new StringComparisonEvaluator();
     $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
         Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
         Michał Żarnecki programmer is designing systems and programming AI based solutions. He is also a lecturer.
@@ -65,5 +65,5 @@ if (isset($_GET['evaluate'])) {
         'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response)
     ];
 
-    error_log(json_encode($resp));
+    error_log("Evaluation:\n" . json_encode($resp));
 }

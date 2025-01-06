@@ -2,9 +2,9 @@
 
 namespace service\evaluate;
 
-class TokenBasedSimilarityEvaluator
+class StringComparisonEvaluator
 {
-    public function calculateBLEU(string $reference, string $candidate, $n = 4)
+    public function calculateBLEU(string $reference, string $candidate, $n = 1)
     {
         $candidateWords = explode(' ', $candidate);
         $referenceWords = explode(' ', $reference);

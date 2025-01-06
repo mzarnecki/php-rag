@@ -26,7 +26,7 @@ final class GeneratedTextFromMixtralProvider extends AbstractOllamaAPIClient
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => "mixtral",
+            "model" => "mistral",
             "prompt" => $input
         ];
     }
