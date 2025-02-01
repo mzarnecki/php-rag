@@ -6,7 +6,7 @@ $(function(){
             data: {'prompt': $form.find('textarea').html()},
             url: $form.attr('action'),
             success: function (data) {
-                $("#response .data").html('<h2>Response</h2>' + data.response + '<br/><br/><br/><h2>Retrieved documents</h2>' + data.documents.join(' '));
+                $("#response .data").html('<h2>Response</h2>' + data.response + '<br/><br/><br/><h2>Retrieved documents</h2>' + data.documents.join('<br/>'));
                 $("#response .spinner").hide();
             },
             dataType: 'JSON',

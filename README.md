@@ -57,7 +57,7 @@ The application demonstrates an interesting use case of distinguishing between t
     - Copy `.env-sample` to `.env` in `app/src`
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2
+      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek
       ```
 
 3. **API Configuration**
@@ -68,7 +68,7 @@ The application demonstrates an interesting use case of distinguishing between t
     - GPU recommended for better performance
     - Uses [Ollama](https://ollama.com/) for local model serving
 
-   #### Cloud API Options (GPT-4o, Claude, Gemini)
+   #### Cloud API Options (GPT-4o, Claude, Gemini, DeepSeek)
     - Requires API key
     - Lower resource requirements
     - Add to `.env`:
@@ -77,7 +77,9 @@ The application demonstrates an interesting use case of distinguishing between t
       ```
       (or modify other env variable related to chosen model)
     - Get OpenAI API key from [OpenAI Platform](https://platform.openai.com/settings/profile?tab=api-keys) (or one related to other API based model)
-
+    - Get DeepSeek API key from [DeepSeek Platform](https://platform.deepseek.com/api_keys)
+    - Get Claude API key from [Claude Platform](https://docs.anthropic.com/en/docs/initial-setup)
+    - Get Gemini API key from [Gemini Platform](https://support.gemini.com/hc/en-us/articles/360031080191-How-do-I-create-an-API-key)
 4. **Launch Application**
    ```bash
    docker-compose up

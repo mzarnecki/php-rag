@@ -2,6 +2,7 @@
 
 namespace service;
 use service\claude\GeneratedTextFromClaudeProvider;
+use service\deepseek\GeneratedTextFromDeepSeekProvider;
 use service\gemini\GeminiTextEncoder;
 use service\gemini\GeneratedTextFromGeminiProvider;
 use service\ollama\GeneratedTextFromLocalBielikProvider;
@@ -19,6 +20,7 @@ class ServicesForSpecificModelFactory
         $mapping = [
             'gpt-4o' => GeneratedTextFromGPTProvider::class,
             'claude-3.5' => GeneratedTextFromClaudeProvider::class,
+            'deepseek' => GeneratedTextFromDeepSeekProvider::class,
             'llama3.2' => GeneratedTextFromLocalLlama3Provider::class,
             'mixtral' => GeneratedTextFromMixtralProvider::class,
             'bielik' => GeneratedTextFromLocalBielikProvider::class,
@@ -37,6 +39,7 @@ class ServicesForSpecificModelFactory
         $mapping = [
             'gpt-4o' => Ada002TextEncoder::class,
             'claude-3.5' => Ada002TextEncoder::class,
+            'deepseek' => Ada002TextEncoder::class,
             'llama3.2' => MxbaiTextEncoder::class,
             'mixtral' => MxbaiTextEncoder::class,
             'bielik' => MxbaiTextEncoder::class,
