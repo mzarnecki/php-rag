@@ -150,7 +150,7 @@ They are not the best solution as they are based on tokens appearance comparison
 - ROUGE
 - BLEU
 
-Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-4o model and ask for 1-5 points evaluation in 5 criteria:
+Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-4o model and ask for 1-5 points evaluation in criteria:
 - correctness: Is the answer accurate, and free of mistakes?
 - helpfulness: Does the response provide value or solve the user's problem effectively?
 - relevance: Does the answer address the question accurately?
