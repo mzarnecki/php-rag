@@ -6,6 +6,8 @@ use service\deepseek\GeneratedTextFromDeepSeekProvider;
 use service\gemini\GeminiTextEncoder;
 use service\gemini\GeneratedTextFromGeminiProvider;
 use service\ollama\GeneratedTextFromLocalBielikProvider;
+use service\ollama\GeneratedTextFromLocalDeepSeekCoderV2Provider;
+use service\ollama\GeneratedTextFromLocalDeepSeekR17BProvider;
 use service\ollama\GeneratedTextFromLocalLlama3Provider;
 use service\ollama\GeneratedTextFromMixtralProvider;
 use service\ollama\MxbaiTextEncoder;
@@ -24,6 +26,8 @@ class ServicesForSpecificModelFactory
             'llama3.2' => GeneratedTextFromLocalLlama3Provider::class,
             'mixtral' => GeneratedTextFromMixtralProvider::class,
             'bielik' => GeneratedTextFromLocalBielikProvider::class,
+            'deepseek-r1-7b' => GeneratedTextFromLocalDeepSeekR17BProvider::class,
+            'deepseek-coder-v2' => GeneratedTextFromLocalDeepSeekCoderV2Provider::class,
             'gemini2' => GeneratedTextFromGeminiProvider::class,
         ];
 
@@ -43,6 +47,8 @@ class ServicesForSpecificModelFactory
             'llama3.2' => MxbaiTextEncoder::class,
             'mixtral' => MxbaiTextEncoder::class,
             'bielik' => MxbaiTextEncoder::class,
+            'deepseek-r1-7b' => MxbaiTextEncoder::class,
+            'deepseek-coder-v2' => MxbaiTextEncoder::class,
             'gemini2' => GeminiTextEncoder::class,
         ];
 

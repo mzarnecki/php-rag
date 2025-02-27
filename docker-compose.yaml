@@ -52,6 +52,7 @@ services:
       - .:/code
       - ./ollama/ollama:/root/.ollama
       - ./entrypoint.sh:/entrypoint.sh
+      - ./app/src/.env:/.env
     container_name: ollama-container
     tty: true
     restart: always

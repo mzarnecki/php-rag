@@ -57,12 +57,12 @@ The application demonstrates an interesting use case of distinguishing between t
     - Copy `.env-sample` to `.env` in `app/src`
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek
+      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, , DeepSeek-R1-7B, DeepSeek-Coder-v2
       ```
 
 3. **API Configuration**
 
-   #### Local API Options (Mixtral, Llama3.2, Bielik)
+   #### Local API Options (Mixtral, Llama3.2, Bielik, DeepSeek-R1-7B, DeepSeek-Coder-v2)
     - No API key required (go directly to point 4.)
     - Requires more CPU/RAM
     - GPU recommended for better performance
@@ -234,7 +234,7 @@ docker-compose up
 
 ## 🎚 Customize
 - Use different LLMs. \
-You can pick from available LLMs: `GPT-4o, Claude-3.5, Llama3.2, Mixtral, Gemini2` \
+You can pick from available LLMs: `GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2, Gemini2` \
 For using other ones you can just modify model name in LLM client class for model provider, for example `app/src/service/openai/GeneratedTextFromGPTProvider.php:13`
 ```php
     final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient
