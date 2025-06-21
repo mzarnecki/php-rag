@@ -21,7 +21,11 @@ class ServicesForSpecificModelFactory
     {
         $model = strtolower($model);
         $mapping = [
+            'gpt-4.1' => GeneratedTextFromGPTProvider::class,
+            'o3' => GeneratedTextFromGPTProvider::class,
+            'o4-mini' => GeneratedTextFromGPTProvider::class,
             'gpt-4o' => GeneratedTextFromGPTProvider::class,
+            'claude-3.7' => GeneratedTextFromClaudeProvider::class,
             'claude-3.5' => GeneratedTextFromClaudeProvider::class,
             'deepseek' => GeneratedTextFromDeepSeekProvider::class,
             'llama3.2' => GeneratedTextFromLocalLlama3Provider::class,
@@ -43,6 +47,9 @@ class ServicesForSpecificModelFactory
     {
         $model = strtolower($model);
         $mapping = [
+            'gpt-4.1' => Ada002TextEncoder::class,
+            'o3' => Ada002TextEncoder::class,
+            'o4-mini' => Ada002TextEncoder::class,
             'gpt-4o' => Ada002TextEncoder::class,
             'claude-3.5' => Ada002TextEncoder::class,
             'deepseek' => Ada002TextEncoder::class,

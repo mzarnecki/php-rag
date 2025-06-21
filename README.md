@@ -57,7 +57,7 @@ The application demonstrates an interesting use case of distinguishing between t
     - Copy `.env-sample` to `.env` in `app/src`
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, , DeepSeek-R1-7B, DeepSeek-Coder-v2
+      MODEL=<model-option>  # Options:GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2
       ```
 
 3. **API Configuration**
@@ -68,7 +68,7 @@ The application demonstrates an interesting use case of distinguishing between t
     - GPU recommended for better performance
     - Uses [Ollama](https://ollama.com/) for local model serving
 
-   #### Cloud API Options (GPT-4o, Claude, Gemini, DeepSeek)
+   #### Cloud API Options (GPT, Claude, Gemini, DeepSeek)
     - Requires API key
     - Lower resource requirements
     - Add to `.env`:
@@ -234,13 +234,13 @@ docker-compose up
 
 ## 🎚 Customize
 - Use different LLMs. \
-You can pick from available LLMs: `GPT-4o, Claude-3.5, Llama3.2, Mixtral, Bielik, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2, Gemini2` \
+You can pick from available LLMs: `GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2` \
 For using other ones you can just modify model name in LLM client class for model provider, for example `app/src/service/openai/GeneratedTextFromGPTProvider.php:13`
 ```php
     final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient
         implements StageInterface, GeneratedTextProviderInterface
     {
-        private string $model = 'gpt-4o';
+        private string $model = 'o3';
 ```
 - Use different embeddings model. \
 Modify `app/src/loadDocuments.php:13` and `app/src/process.php:20`. \
