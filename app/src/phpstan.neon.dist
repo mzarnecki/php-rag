@@ -1,0 +1,13 @@
+parameters:
+    level: 8
+    paths:
+        - common
+        - console
+        - frontend
+        - shared
+        - tests
+    excludePaths:
+            analyse:
+                - src/Experimental
+
+    reportUnmatchedIgnoredErrors: true
