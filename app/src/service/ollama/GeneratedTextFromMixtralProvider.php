@@ -6,11 +6,10 @@ use League\Pipeline\StageInterface;
 use service\GeneratedTextProviderInterface;
 use service\pipeline\Payload;
 
-final class GeneratedTextFromMixtralProvider extends AbstractOllamaAPIClient
-    implements StageInterface, GeneratedTextProviderInterface {
-
+final class GeneratedTextFromMixtralProvider extends AbstractOllamaAPIClient implements GeneratedTextProviderInterface, StageInterface
+{
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return string
      */
     public function __invoke($payload)
@@ -23,11 +22,14 @@ final class GeneratedTextFromMixtralProvider extends AbstractOllamaAPIClient
         return '/api/generate';
     }
 
+    /**
+     * @return array{model: string, prompt: string}
+     */
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => "mistral",
-            "prompt" => $input
+            'model' => 'mistral',
+            'prompt' => $input,
         ];
     }
 }

@@ -12,11 +12,8 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__.'/common',
-        __DIR__.'/console',
-        __DIR__.'/frontend',
-        __DIR__.'/shared',
-        __DIR__.'/tests',
+        __DIR__.'/service',
+        __DIR__.'/test',
     ]);
 
     $rectorConfig->rules([

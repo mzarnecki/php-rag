@@ -1,4 +1,5 @@
 <?php
+
 namespace service;
 
 interface GeneratedTextProviderInterface

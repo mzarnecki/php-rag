@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\openai;
@@ -8,8 +9,7 @@ use service\pipeline\Payload;
 use service\TextEncoderInterface;
 use service\TextSplitter;
 
-final class Ada002TextEncoder extends AbstractGPTAPIClient
-    implements StageInterface, TextEncoderInterface
+final class Ada002TextEncoder extends AbstractGPTAPIClient implements StageInterface, TextEncoderInterface
 {
     private string $embeddingModel = 'text-embedding-ada-002';
 
@@ -26,16 +26,16 @@ final class Ada002TextEncoder extends AbstractGPTAPIClient
         foreach ($chunks as $chunk) {
             $response = $this->client->embeddings()->create([
                 'input' => $chunk,
-                'model' => $this->embeddingModel
+                'model' => $this->embeddingModel,
             ]);
-            $embeddings[] = json_encode($response->embeddings[0]->embedding);
+            $embeddings[] = json_encode($response->embeddings[0]->embedding, JSON_THROW_ON_ERROR);
         }
 
         return $embeddings;
     }
 
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return Payload
      */
     public function __invoke($payload)

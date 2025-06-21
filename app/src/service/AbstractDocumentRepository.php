@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service;
@@ -13,9 +14,9 @@ abstract class AbstractDocumentRepository
     public function __construct()
     {
         try {
-            $this->connection = new PDO('pgsql:host=postgres;port=5432;dbname='.$_ENV["POSTGRES_DB"] .'',''.$_ENV["POSTGRES_USER"] .'',''.$_ENV["POSTGRES_PASSWORD"] .'');
+            $this->connection = new PDO('pgsql:host=postgres;port=5432;dbname='.$_ENV['POSTGRES_DB'].'', ''.$_ENV['POSTGRES_USER'].'', ''.$_ENV['POSTGRES_PASSWORD'].'');
         } catch (PDOException $e) {
-            die('Connection failed: ' . $e->getMessage());
+            exit('Connection failed: '.$e->getMessage());
         }
     }
 }

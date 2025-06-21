@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service;
@@ -13,16 +14,16 @@ final class DocumentLoader extends AbstractDocumentRepository
 
     public function loadDocuments(): void
     {
-        $path    = __DIR__ . '/../documents';
-        $files = array_diff(scandir($path), array('.', '..'));
+        $path = __DIR__.'/../documents';
+        $files = array_diff(scandir($path), ['.', '..']);
         $total = count($files);
 
         $skipFirstN = 1330; //replace this to skip N documents for debugging
-        foreach($files as $index => $file) {
+        foreach ($files as $index => $file) {
             if ($index < $skipFirstN) {
                 continue;
             }
-            $document = file_get_contents($path . '/' . $file);
+            $document = file_get_contents($path.'/'.$file);
             //cut document to tokens limit 8192
             if (str_word_count($document) >= 0.75 * 8000) {
                 $words = explode(' ', $document);
@@ -43,7 +44,7 @@ final class DocumentLoader extends AbstractDocumentRepository
         fwrite(STDOUT, "Loading documents complete\n");
     }
 
-    private function showProgress(int $index, int $total, int $skip): void
+    private function showProgress(int|string $index, int $total, int $skip): void
     {
         $all = $total - $skip;
         $numLoaded = $index - $skip + 1;
@@ -61,7 +62,7 @@ final class DocumentLoader extends AbstractDocumentRepository
         string $document,
         string $embedding
     ): bool {
-        $statement = $this->connection->prepare("INSERT INTO document(name, text, embedding) VALUES(:name, :doc, :embed)");
+        $statement = $this->connection->prepare('INSERT INTO document(name, text, embedding) VALUES(:name, :doc, :embed)');
 
         return $statement->execute([
             'name' => $name,
@@ -69,5 +70,4 @@ final class DocumentLoader extends AbstractDocumentRepository
             'embed' => $embedding,
         ]);
     }
-
 }

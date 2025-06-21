@@ -1,6 +1,7 @@
 <?php
 
 namespace service;
+
 use service\claude\GeneratedTextFromClaudeProvider;
 use service\deepseek\GeneratedTextFromDeepSeekProvider;
 use service\gemini\GeminiTextEncoder;
@@ -34,6 +35,7 @@ class ServicesForSpecificModelFactory
         if (! isset($mapping[$model])) {
             throw new \Exception(sprintf('No service found for model %s', static::class));
         }
+
         return new $mapping[$model];
     }
 
@@ -55,7 +57,7 @@ class ServicesForSpecificModelFactory
         if (! isset($mapping[$model])) {
             throw new \Exception(sprintf('No service found for model %s', static::class));
         }
+
         return new $mapping[$model](new TextSplitter());
     }
-
 }

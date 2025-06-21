@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service;
@@ -9,12 +10,7 @@ use service\pipeline\Payload;
 final class DocumentProvider extends AbstractDocumentRepository implements StageInterface
 {
     /**
-     * @param string $prompt
-     * @param string $embeddingPrompt
-     * @param bool $useReranking
-     * @param int $limit
-     * @param string $distanceFunction l2|cosine|innerProduct
-     * @return array
+     * @param  string  $distanceFunction  l2|cosine|innerProduct
      */
     public function getSimilarDocuments(
         string $prompt,
@@ -27,18 +23,16 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
         $stmt = $this->connection->prepare($query);
         $stmt->execute(['embeddingPrompt' => $embeddingPrompt]);
         $documents = $stmt->fetchAll();
-        error_log('RETRIEVED DOCUMENTS:'. PHP_EOL);
+        error_log('RETRIEVED DOCUMENTS:'.PHP_EOL);
         $documentsNames = [];
         foreach ($documents as &$document) {
             $documentsNames[] = $document['name'];
-            error_log($document['name'] . PHP_EOL);
+            error_log($document['name'].PHP_EOL);
         }
         if ($useReranking) {
             $documents = $this->rerank($prompt, $documents);
         } else {
-            $documents = array_map(function ($document) {
-                return $document['text'];
-            }, $documents);
+            $documents = array_map(fn($document) => $document['text'], $documents);
         }
 
         return [$documents, $documentsNames];
@@ -51,7 +45,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
     {
         $documentsReranked = [];
         foreach ($documents as $document) {
-            $intersection = array_intersect(explode(' ', $document['text']), explode(' ', $prompt));
+            $intersection = array_intersect(explode(' ', (string) $document['text']), explode(' ', $prompt));
             $index = count($intersection);
             while (isset($documentsReranked[$index])) {
                 $index++;
@@ -59,6 +53,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
             $documentsReranked[$index] = $document['text'];
         }
         krsort($documentsReranked);
+
         return $documentsReranked;
     }
 
@@ -66,16 +61,12 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
         string $distanceFunction,
         int $limit = 10
     ): string {
-        switch ($distanceFunction) {
-            case 'l2':
-                return $this->getQueryForL2Distance($limit);
-            case 'cosine':
-                return $this->getQueryForCosineDistance($limit);
-            case 'innerProduct':
-                return $this->getQueryForInnerProduct($limit);
-            default:
-               throw new \LogicException('Unknown distance function: ' . $distanceFunction);
-        }
+        return match ($distanceFunction) {
+            'l2' => $this->getQueryForL2Distance($limit),
+            'cosine' => $this->getQueryForCosineDistance($limit),
+            'innerProduct' => $this->getQueryForInnerProduct($limit),
+            default => throw new \LogicException('Unknown distance function: '.$distanceFunction),
+        };
     }
 
     private function getQueryForL2Distance(int $limit = 10): string
@@ -94,7 +85,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
     }
 
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return Payload
      */
     public function __invoke($payload)

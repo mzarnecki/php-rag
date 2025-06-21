@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\ollama;
@@ -8,8 +9,7 @@ use service\pipeline\Payload;
 use service\TextEncoderInterface;
 use service\TextSplitter;
 
-final class MxbaiTextEncoder extends AbstractOllamaAPIClient
-    implements StageInterface, TextEncoderInterface
+final class MxbaiTextEncoder extends AbstractOllamaAPIClient implements StageInterface, TextEncoderInterface
 {
     private string $embeddingModel = 'mxbai-embed-large';
 
@@ -24,15 +24,14 @@ final class MxbaiTextEncoder extends AbstractOllamaAPIClient
 
         foreach ($chunks as $chunk) {
             $response = $this->request($chunk);
-            $embeddings[] = json_encode(json_decode($response, true)['embedding']);
+            $embeddings[] = json_encode(json_decode((string) $response, true, 512, JSON_THROW_ON_ERROR)['embedding'], JSON_THROW_ON_ERROR);
         }
 
         return $embeddings;
     }
 
-
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return Payload
      */
     public function __invoke($payload)
@@ -40,31 +39,19 @@ final class MxbaiTextEncoder extends AbstractOllamaAPIClient
         return $payload->setEmbeddingPrompt($this->getEmbeddings($payload->getPrompt())[0]);
     }
 
-    private function splitDocumentIntoChunks(string $document, int $chunkSize, int $overlap): array
-    {
-        $chunks = [];
-        $length = strlen($document);
-        $start = 0;
-
-        while ($start < $length) {
-            $end = min($start + $chunkSize, $length);
-            $chunks[] = substr($document, $start, $end - $start);
-            $start += ($chunkSize - $overlap);
-        }
-
-        return $chunks;
-    }
-
     protected function getEndpoint(): string
     {
         return '/api/embeddings';
     }
 
+    /**
+     * @return array{model: string, prompt: string}
+     */
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => $this->embeddingModel,
-            "prompt" => $input
+            'model' => $this->embeddingModel,
+            'prompt' => $input,
         ];
     }
 }

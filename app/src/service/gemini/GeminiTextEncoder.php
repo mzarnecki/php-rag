@@ -7,9 +7,8 @@ use service\pipeline\Payload;
 use service\TextEncoderInterface;
 use service\TextSplitter;
 
-final class GeminiTextEncoder extends AbstractGeminiAPIClient
-    implements StageInterface, TextEncoderInterface {
-
+final class GeminiTextEncoder extends AbstractGeminiAPIClient implements StageInterface, TextEncoderInterface
+{
     private string $embeddingModel = 'text-embedding-004';
 
     public function __construct(private readonly TextSplitter $textSplitter)
@@ -29,18 +28,18 @@ final class GeminiTextEncoder extends AbstractGeminiAPIClient
                 $this->embeddingModel,
                 [
                     'content' => ['parts' => [[
-                        'text' => $chunk
-                    ]]]
+                        'text' => $chunk,
+                    ]]],
                 ]
             );
-            $embeddings[] = json_encode($response['embedding']['values']);
+            $embeddings[] = json_encode($response['embedding']['values'], JSON_THROW_ON_ERROR);
         }
 
         return $embeddings;
     }
 
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return Payload
      */
     public function __invoke($payload)

@@ -1,17 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\ollama;
 
-use service\GeneratedTextProviderInterface;
 use League\Pipeline\StageInterface;
+use service\GeneratedTextProviderInterface;
 use service\pipeline\Payload;
 
-final class GeneratedTextFromLocalBielikProvider extends AbstractOllamaAPIClient
-    implements StageInterface, GeneratedTextProviderInterface
+final class GeneratedTextFromLocalBielikProvider extends AbstractOllamaAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return string
      */
     public function __invoke($payload)
@@ -24,11 +24,14 @@ final class GeneratedTextFromLocalBielikProvider extends AbstractOllamaAPIClient
         return '/api/generate';
     }
 
+    /**
+     * @return array{model: string, prompt: string}
+     */
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => "mwiewior/bielik",
-            "prompt" => $input
+            'model' => 'mwiewior/bielik',
+            'prompt' => $input,
         ];
     }
 }

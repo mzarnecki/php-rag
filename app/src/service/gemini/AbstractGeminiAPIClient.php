@@ -10,12 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractGeminiAPIClient
 {
     protected string $apiKey;
+
     protected Client $httpClient;
 
     public function __construct()
     {
         // Load environment variables
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
 
         // Get API key from environment
@@ -24,13 +25,13 @@ abstract class AbstractGeminiAPIClient
         // Initialize Guzzle HTTP client
         $this->httpClient = new Client([
             'base_uri' => 'https://generativelanguage.googleapis.com/v1beta/',
-            'timeout'  => 10.0,
+            'timeout' => 10.0,
         ]);
     }
 
     protected function request(string $method, string $model, array $data): array
     {
-        $url = "models/$model:$method?key=" . $this->apiKey;
+        $url = "models/$model:$method?key=".$this->apiKey;
 
         try {
             /** @var ResponseInterface $response */
@@ -39,11 +40,12 @@ abstract class AbstractGeminiAPIClient
                 'headers' => ['Content-Type' => 'application/json'],
             ]);
 
-            $responseData = json_decode($response->getBody()->getContents(), true);
+            $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+
             return $responseData ?? [];
         } catch (GuzzleException $e) {
             // Handle the exception and log or rethrow as needed
-            throw new \RuntimeException('Request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new \RuntimeException('Request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 }

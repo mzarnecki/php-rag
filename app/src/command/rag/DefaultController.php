@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace command\rag;
 
-use app\src\service\gpt\GeneratedTextFromGPTProvider;
 use app\src\service\gpt\Ada002TextEncoder;
+use app\src\service\gpt\GeneratedTextFromGPTProvider;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use Minicli\Command\CommandController;
@@ -12,15 +13,15 @@ use service\DocumentProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
+
 use function Laravel\Prompts\spin;
 use function Laravel\Prompts\textarea;
-
 
 final class DefaultController extends CommandController
 {
     public function handle(): void
     {
-        $this->info("Php Rag application");
+        $this->info('Php Rag application');
 
         do {
             $question = textarea(
@@ -34,10 +35,10 @@ final class DefaultController extends CommandController
                 'Fetching response...'
             );
 
-        }while($question);
+        } while ($question);
     }
 
-    private function process(string $question)
+    private function process(string $question): void
     {
         $_POST['prompt'] = $question;
 
@@ -57,8 +58,8 @@ final class DefaultController extends CommandController
         $response = $pipeline->process($payload);
 
         $this->info($payload->getRagPrompt(), true);
-        $this->display("You asked: " .$question);
-        $this->success("Response: " .$response);
+        $this->display('You asked: '.$question);
+        $this->success('Response: '.$response);
         $this->newline();
 
     }

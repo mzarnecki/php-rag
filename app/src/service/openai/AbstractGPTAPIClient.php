@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\openai;
@@ -13,8 +14,8 @@ abstract class AbstractGPTAPIClient
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
-        $this->client = OpenAI::Client( $_ENV['OPENAI_API_KEY']);
+        $this->client = OpenAI::Client($_ENV['OPENAI_API_KEY']);
     }
 }

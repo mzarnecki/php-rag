@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test;
 
-use service\TextSplitter;
 use PHPUnit\Framework\TestCase;
+use service\TextSplitter;
 
 class TextSplitterTest extends TestCase
 {
@@ -12,7 +13,7 @@ class TextSplitterTest extends TestCase
     {
         $textSplitter = new TextSplitter();
         $chunks = $textSplitter->splitDocumentIntoChunks($this->getLoremIpsum(), 300, 100);
-        $this->assertEquals(substr($chunks[0], strlen($chunks[0])-100), substr($chunks[1], 0, 100));
+        $this->assertEquals(substr((string) $chunks[0], strlen((string) $chunks[0]) - 100), substr((string) $chunks[1], 0, 100));
     }
 
     public function testTextSplitter_splitsToExpectedNumberOfChunks(): void
@@ -26,6 +27,6 @@ class TextSplitterTest extends TestCase
 
     public function getLoremIpsum(): string
     {
-        return file_get_contents(__DIR__ . '/lorem-ipsum.txt');
+        return file_get_contents(__DIR__.'/lorem-ipsum.txt');
     }
 }

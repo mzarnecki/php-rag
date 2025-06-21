@@ -6,11 +6,10 @@ use League\Pipeline\StageInterface;
 use service\GeneratedTextProviderInterface;
 use service\pipeline\Payload;
 
-class GeneratedTextFromLocalDeepSeekR17BProvider extends AbstractOllamaAPIClient
-    implements StageInterface, GeneratedTextProviderInterface
+class GeneratedTextFromLocalDeepSeekR17BProvider extends AbstractOllamaAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
     /**
-     * @param Payload $payload
+     * @param  Payload  $payload
      * @return string
      */
     public function __invoke($payload)
@@ -23,14 +22,14 @@ class GeneratedTextFromLocalDeepSeekR17BProvider extends AbstractOllamaAPIClient
         return '/api/generate';
     }
 
+    /**
+     * @return array{model: string, prompt: string}
+     */
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => "deepseek-r1:7b",
-            "prompt" => $input
+            'model' => 'deepseek-r1:7b',
+            'prompt' => $input,
         ];
     }
-}
-{
-
 }

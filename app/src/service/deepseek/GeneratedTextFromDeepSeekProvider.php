@@ -2,10 +2,10 @@
 
 namespace service\deepseek;
 
-use service\GeneratedTextProviderInterface;
 use League\Pipeline\StageInterface;
+use service\GeneratedTextProviderInterface;
 
-final class GeneratedTextFromDeepSeekProvider extends AbstractDeepSeekAPIClient implements StageInterface, GeneratedTextProviderInterface
+final class GeneratedTextFromDeepSeekProvider extends AbstractDeepSeekAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
     private string $model = 'deepseek-chat';
 
@@ -13,7 +13,7 @@ final class GeneratedTextFromDeepSeekProvider extends AbstractDeepSeekAPIClient 
     {
         $messages = [
             ['role' => 'system', 'content' => 'You are a helpful assistant.'],
-            ['role' => 'user', 'content' => $sourceDocuments . "\n\n" . $prompt],
+            ['role' => 'user', 'content' => $sourceDocuments."\n\n".$prompt],
         ];
 
         $response = $this->request(

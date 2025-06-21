@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\pipeline;
@@ -6,10 +7,15 @@ namespace service\pipeline;
 final class Payload
 {
     private string $prompt;
+
     private string $embeddingPrompt;
+
     private array $similarDocuments;
+
     private array $similarDocumentsNames;
+
     private string $ragPrompt;
+
     private bool $useReranking = false;
 
     public function getPrompt(): string
@@ -20,6 +26,7 @@ final class Payload
     public function setPrompt(string $prompt): self
     {
         $this->prompt = $prompt;
+
         return $this;
     }
 
@@ -31,6 +38,7 @@ final class Payload
     public function setEmbeddingPrompt(string $embeddingPrompt): self
     {
         $this->embeddingPrompt = $embeddingPrompt;
+
         return $this;
     }
 
@@ -42,6 +50,7 @@ final class Payload
     public function setSimilarDocuments(array $similarDocuments): self
     {
         $this->similarDocuments = $similarDocuments;
+
         return $this;
     }
 
@@ -53,6 +62,7 @@ final class Payload
     public function setSimilarDocumentsNames(array $similarDocumentsNames): self
     {
         $this->similarDocumentsNames = $similarDocumentsNames;
+
         return $this;
     }
 
@@ -64,6 +74,7 @@ final class Payload
     public function setRagPrompt(string $ragPrompt): self
     {
         $this->ragPrompt = $ragPrompt;
+
         return $this;
     }
 
@@ -75,6 +86,7 @@ final class Payload
     public function setUseReranking(bool $useReranking): self
     {
         $this->useReranking = $useReranking;
+
         return $this;
     }
 }

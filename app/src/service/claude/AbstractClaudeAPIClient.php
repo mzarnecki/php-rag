@@ -10,12 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractClaudeAPIClient
 {
     protected string $apiKey;
+
     protected Client $httpClient;
 
     public function __construct()
     {
         // Load environment variables
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
 
         // Get API key from environment
@@ -24,7 +25,7 @@ abstract class AbstractClaudeAPIClient
         // Initialize Guzzle HTTP client
         $this->httpClient = new Client([
             'base_uri' => 'https://api.anthropic.com/v1/',
-            'timeout'  => 10.0,
+            'timeout' => 10.0,
         ]);
     }
 
@@ -39,9 +40,9 @@ abstract class AbstractClaudeAPIClient
             'messages' => [
                 [
                     'role' => 'user',
-                    'content' => $prompt
-                ]
-            ]
+                    'content' => $prompt,
+                ],
+            ],
         ];
 
         try {
@@ -51,19 +52,19 @@ abstract class AbstractClaudeAPIClient
                 'headers' => [
                     'x-api-key' => $this->apiKey,
                     'anthropic-version' => '2023-06-01',
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
             ]);
 
-            $responseData = json_decode($response->getBody()->getContents(), true);
+            $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
             // Log the response for debugging
-            error_log(json_encode($responseData) . PHP_EOL);
+            error_log(json_encode($responseData, JSON_THROW_ON_ERROR).PHP_EOL);
 
             return $responseData ?? [];
         } catch (GuzzleException $e) {
             // Handle the exception and log or rethrow as needed
-            throw new \RuntimeException('Request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new \RuntimeException('Request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 }

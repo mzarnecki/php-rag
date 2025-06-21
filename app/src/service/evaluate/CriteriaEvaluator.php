@@ -16,9 +16,9 @@ class CriteriaEvaluator extends AbstractClaudeAPIClient
             'messages',
             $this->model
         );
+
         return $response['content'][0]['text'];
     }
-
 
     private function getEvaluationPrompt(string $prompt, string $answer): string
     {

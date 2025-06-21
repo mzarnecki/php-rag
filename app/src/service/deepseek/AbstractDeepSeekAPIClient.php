@@ -10,18 +10,19 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractDeepSeekAPIClient
 {
     protected string $apiKey;
+
     protected Client $httpClient;
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
 
         $this->apiKey = $_ENV['DEEPSEEK_API_KEY'];
 
         $this->httpClient = new Client([
             'base_uri' => 'https://api.deepseek.com/',
-            'timeout'  => 10.0,
+            'timeout' => 10.0,
         ]);
     }
 
@@ -38,17 +39,17 @@ abstract class AbstractDeepSeekAPIClient
             $response = $this->httpClient->post('chat/completions', [
                 'json' => $data,
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $this->apiKey,
+                    'Authorization' => 'Bearer '.$this->apiKey,
                     'Content-Type' => 'application/json',
                 ],
             ]);
 
-            $responseData = json_decode($response->getBody()->getContents(), true);
-            error_log(json_encode($responseData) . PHP_EOL);
+            $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            error_log(json_encode($responseData, JSON_THROW_ON_ERROR).PHP_EOL);
 
             return $responseData ?? [];
         } catch (GuzzleException $e) {
-            throw new \RuntimeException('DeepSeek API request failed: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new \RuntimeException('DeepSeek API request failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 }

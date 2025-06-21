@@ -11,7 +11,7 @@ use service\PromptResolver;
 use service\RAGPromptProvider;
 use service\ServicesForSpecificModelFactory;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -38,32 +38,32 @@ $response = $pipeline->process($payload);
 if (isset($_GET['api'])) {
     $resp = [
         'response' => $response,
-        'documents' => $payload->getSimilarDocumentsNames()
+        'documents' => $payload->getSimilarDocumentsNames(),
     ];
-    echo json_encode($resp);
+    echo json_encode($resp, JSON_THROW_ON_ERROR);
 } else {
-    echo "<h1>RESPONSE:</h1>";
-    echo "<br /><br />";
+    echo '<h1>RESPONSE:</h1>';
+    echo '<br /><br />';
     echo $response;
-    echo "<br /><br /><br /><br />";
-    echo "<h1>DOCUMENTS:</h1>";
-    echo "<br /><br />";
+    echo '<br /><br /><br /><br />';
+    echo '<h1>DOCUMENTS:</h1>';
+    echo '<br /><br />';
     echo $payload->getRagPrompt();
 }
 
 if (isset($_GET['evaluate'])) {
     $criteriaEvaluator = new CriteriaEvaluator();
     $tokenSimilarityEvaluator = new StringComparisonEvaluator();
-    $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
+    $compareResp = 'Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
         Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
         Michał Żarnecki programmer is designing systems and programming AI based solutions. He is also a lecturer.
-        Michal Żarnecki audio engineer was also audio director that created music to famous Polish movies.";
+        Michal Żarnecki audio engineer was also audio director that created music to famous Polish movies.';
 
     $resp['evaluation'] = [
         'ROUGE' => $tokenSimilarityEvaluator->calculateROUGE($compareResp, $response),
         'BLEU' => $tokenSimilarityEvaluator->calculateBLEU($compareResp, $response),
-        'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response)
+        'criteria' => $criteriaEvaluator->evaluate($payload->getRagPrompt(), $response),
     ];
 
-    error_log("Evaluation:\n" . json_encode($resp));
+    error_log("Evaluation:\n".json_encode($resp, JSON_THROW_ON_ERROR));
 }
