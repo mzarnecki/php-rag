@@ -32,7 +32,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
         if ($useReranking) {
             $documents = $this->rerank($prompt, $documents);
         } else {
-            $documents = array_map(fn($document) => $document['text'], $documents);
+            $documents = array_map(fn ($document) => $document['text'], $documents);
         }
 
         return [$documents, $documentsNames];

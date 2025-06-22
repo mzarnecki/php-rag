@@ -38,6 +38,7 @@ abstract class AbstractGeminiAPIClient
             $response = $this->httpClient->post($url, [
                 'json' => $data,
                 'headers' => ['Content-Type' => 'application/json'],
+                'timeout' => 180,
             ]);
 
             $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

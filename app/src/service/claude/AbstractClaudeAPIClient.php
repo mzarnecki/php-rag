@@ -54,6 +54,7 @@ abstract class AbstractClaudeAPIClient
                     'anthropic-version' => '2023-06-01',
                     'Content-Type' => 'application/json',
                 ],
+                'timeout' => 180,
             ]);
 
             $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);

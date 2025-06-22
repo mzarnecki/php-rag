@@ -13,7 +13,8 @@ $(function(){
             beforeSend: function () {
                 $("#response .data").html('');
                 $("#response .spinner").show();
-            }
+            },
+            timeout: 300000,
         });
         return false;
     });

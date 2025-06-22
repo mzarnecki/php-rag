@@ -42,6 +42,7 @@ abstract class AbstractDeepSeekAPIClient
                     'Authorization' => 'Bearer '.$this->apiKey,
                     'Content-Type' => 'application/json',
                 ],
+                'timeout' => 180,
             ]);
 
             $responseData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
