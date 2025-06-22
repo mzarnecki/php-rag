@@ -4,6 +4,9 @@ namespace service;
 
 class TextSplitter
 {
+    /**
+     * @return string[]
+     */
     public function splitDocumentIntoChunks(string $document, int $chunkSize, int $overlap): array
     {
         $chunks = [];

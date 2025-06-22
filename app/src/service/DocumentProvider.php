@@ -11,6 +11,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
 {
     /**
      * @param  string  $distanceFunction  l2|cosine|innerProduct
+     * @return string[][]
      */
     public function getSimilarDocuments(
         string $prompt,
@@ -40,6 +41,8 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
 
     /**
      * Sometimes its worth to use efficient algorithm for querying vector DB and more precise to rerank chosen documents in
+     *
+     * @return string[][]
      */
     public function rerank(string $prompt, array $documents): array
     {

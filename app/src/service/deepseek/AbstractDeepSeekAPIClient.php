@@ -26,6 +26,13 @@ abstract class AbstractDeepSeekAPIClient
         ]);
     }
 
+    /**
+     * @param  string[]  $messages
+     * @param  string[]  $options
+     * @return string[]
+     *
+     * @throws \JsonException
+     */
     protected function request(array $messages, string $model, bool $stream = false, array $options = []): array
     {
         $data = array_merge([

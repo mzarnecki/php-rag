@@ -13,7 +13,7 @@ class TextSplitterTest extends TestCase
     {
         $textSplitter = new TextSplitter();
         $chunks = $textSplitter->splitDocumentIntoChunks($this->getLoremIpsum(), 300, 100);
-        $this->assertEquals(substr((string) $chunks[0], strlen((string) $chunks[0]) - 100), substr((string) $chunks[1], 0, 100));
+        $this->assertEquals(substr($chunks[0], strlen($chunks[0]) - 100), substr($chunks[1], 0, 100));
     }
 
     public function testTextSplitter_splitsToExpectedNumberOfChunks(): void

@@ -4,7 +4,7 @@ namespace service\evaluate;
 
 class StringComparisonEvaluator
 {
-    public function calculateBLEU(string $reference, string $candidate, $n = 1): float
+    public function calculateBLEU(string $reference, string $candidate, int $n = 1): float
     {
         $candidateWords = explode(' ', $candidate);
         $referenceWords = explode(' ', $reference);
@@ -22,7 +22,7 @@ class StringComparisonEvaluator
                     $matches++;
                 }
             }
-            $nGramMatches[$i] = $matches / max(is_countable($candidateNGrams) ? count($candidateNGrams) : 0, 1);
+            $nGramMatches[$i] = $matches / max((is_countable($candidateNGrams) ? count($candidateNGrams) : 0), 1);
         }
 
         $precision = array_product($nGramMatches);

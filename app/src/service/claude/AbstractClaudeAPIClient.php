@@ -29,6 +29,11 @@ abstract class AbstractClaudeAPIClient
         ]);
     }
 
+    /**
+     * @return string[]
+     *
+     * @throws \JsonException
+     */
     protected function request(string $prompt, string $endpoint, string $model): array
     {
         $url = $endpoint;

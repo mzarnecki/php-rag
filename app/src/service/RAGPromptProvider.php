@@ -12,6 +12,9 @@ final class RAGPromptProvider implements StageInterface
 {
     public const CONTEXT_TOKEN_COUNT = 5000;
 
+    /**
+     * @param  string[]  $documents
+     */
     public function getRAGPrompt(array $documents, string $prompt): string
     {
         $contextTokenCount = self::CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;

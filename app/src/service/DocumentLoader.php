@@ -15,7 +15,7 @@ final class DocumentLoader extends AbstractDocumentRepository
     public function loadDocuments(): void
     {
         $path = __DIR__.'/../documents';
-        $files = array_diff(scandir($path), ['.', '..']);
+        $files = array_diff((array) scandir($path), ['.', '..']);
         $total = count($files);
 
         $skipFirstN = 1330; //replace this to skip N documents for debugging
@@ -23,7 +23,7 @@ final class DocumentLoader extends AbstractDocumentRepository
             if ($index < $skipFirstN) {
                 continue;
             }
-            $document = file_get_contents($path.'/'.$file);
+            $document = (string) file_get_contents($path.'/'.$file);
             //cut document to tokens limit 8192
             if (str_word_count($document) >= 0.75 * 8000) {
                 $words = explode(' ', $document);
@@ -34,6 +34,8 @@ final class DocumentLoader extends AbstractDocumentRepository
                 $responseDocumentsChunks = $this->textEncoder->getEmbeddings($document);
             } catch (\Throwable $e) {
                 error_log($e->getMessage());
+
+                return;
             }
 
             foreach ($responseDocumentsChunks as $chunk) {
@@ -46,13 +48,14 @@ final class DocumentLoader extends AbstractDocumentRepository
 
     private function showProgress(int|string $index, int $total, int $skip): void
     {
+        if (! is_int($index)) {
+            return;
+        }
         $all = $total - $skip;
         $numLoaded = $index - $skip + 1;
         $progress = '';
         if ($numLoaded % 10 === 0) {
-            for ($i = 0; $i < $numLoaded / 10; $i++) {
-                $progress .= '-';
-            }
+            $progress = str_repeat('-', $numLoaded / 10);
             fwrite(STDOUT, "{$progress}\nLoaded {$numLoaded} of {$all} source documents to vector DB\n");
         }
     }

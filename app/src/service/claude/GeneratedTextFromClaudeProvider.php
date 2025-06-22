@@ -4,6 +4,7 @@ namespace service\claude;
 
 use League\Pipeline\StageInterface;
 use service\GeneratedTextProviderInterface;
+use service\pipeline\Payload;
 
 final class GeneratedTextFromClaudeProvider extends AbstractClaudeAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
@@ -23,9 +24,8 @@ final class GeneratedTextFromClaudeProvider extends AbstractClaudeAPIClient impl
 
     /**
      * @param  Payload  $payload
-     * @return string
      */
-    public function __invoke($payload)
+    public function __invoke($payload): string
     {
         return $this->generateText($payload->getPrompt(), $payload->getRagPrompt());
     }
