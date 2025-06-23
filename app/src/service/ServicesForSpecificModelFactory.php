@@ -51,6 +51,7 @@ class ServicesForSpecificModelFactory
             'o3' => Ada002TextEncoder::class,
             'o4-mini' => Ada002TextEncoder::class,
             'gpt-4o' => Ada002TextEncoder::class,
+            'claude-3.7' => Ada002TextEncoder::class,
             'claude-3.5' => Ada002TextEncoder::class,
             'deepseek' => Ada002TextEncoder::class,
             'llama3.2' => MxbaiTextEncoder::class,

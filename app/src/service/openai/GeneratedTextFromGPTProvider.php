@@ -10,7 +10,7 @@ use service\pipeline\Payload;
 
 final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
-    private string $model = 'o3';
+    private string $model = 'o4-mini';
 
     public function generateText(string $prompt, string $sourceDocuments): string
     {

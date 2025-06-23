@@ -42,6 +42,21 @@ The application demonstrates an interesting use case of distinguishing between t
 - Context-aware response generation
 - Docker-based setup for easy deployment
 
+## 🧠 Supported models
+- gpt-4.1
+- o3
+- o4-mini
+- gpt-4o
+- claude-3.7
+- claude-3.5
+- deepseek
+- llama3.2
+- mixtral
+- bielik
+- deepseek-r1-7b
+- deepseek-coder
+- gemini2
+
 ## 📋 Prerequisites
 
 - Docker and Docker Compose ([Installation Guide](https://docs.docker.com/compose/install/))

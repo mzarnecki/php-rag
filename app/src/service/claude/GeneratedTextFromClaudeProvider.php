@@ -8,7 +8,7 @@ use service\pipeline\Payload;
 
 final class GeneratedTextFromClaudeProvider extends AbstractClaudeAPIClient implements GeneratedTextProviderInterface, StageInterface
 {
-    private string $model = 'claude-3-5-sonnet-20241022';
+    private string $model = 'claude-3-7-sonnet-latest';
 
     public function generateText(string $prompt, string $sourceDocuments): string
     {
