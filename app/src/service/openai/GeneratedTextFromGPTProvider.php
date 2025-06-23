@@ -28,7 +28,7 @@ final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient implements
             ],
         ]);
 
-        return $response->choices[0]->message->content;
+        return (string) $response->choices[0]->message->content;
     }
 
     /**

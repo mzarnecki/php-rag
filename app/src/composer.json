@@ -46,7 +46,7 @@
         "test:lint": "pint --test -v",
         "test:refactor": "rector --dry-run ",
         "test:types": "phpstan analyse --ansi --memory-limit 4G",
-        "test:unit": "cd ./test && php ../vendor/bin/phpunit",
+        "test:unit": "cd ./test && php ../vendor/bin/phpunit .",
         "test": [
             "@test:lint",
             "@test:refactor",

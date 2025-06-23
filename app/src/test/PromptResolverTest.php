@@ -18,7 +18,7 @@ final class PromptResolverTest extends TestCase
 
     public function testPrompt_isProvided_whenConsoleArgGiven(): void
     {
-        $argv = [];
+        global $argv;
         $argv[0] = 'What is the result of 2 + 2?';
         $promptResolver = new PromptResolver();
         $prompt = $promptResolver->getPromptFromInput();

@@ -20,9 +20,11 @@ final class GeneratedTextFromGeminiProvider extends AbstractGeminiAPIClient impl
             'generateContent',
             $this->model,
             [
-                'contents' => ['parts' => [[
-                    'text' => $content,
-                ]]],
+                'contents' => [
+                    'parts' => [
+                        ['text' => $content],
+                    ],
+                ],
             ]
         );
 

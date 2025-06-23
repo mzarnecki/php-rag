@@ -29,6 +29,12 @@ abstract class AbstractGeminiAPIClient
         ]);
     }
 
+    /**
+     * @param  string[][][][]  $data
+     * @return string[][][][][][]
+     *
+     * @throws \JsonException
+     */
     protected function request(string $method, string $model, array $data): array
     {
         $url = "models/$model:$method?key=".$this->apiKey;

@@ -282,6 +282,25 @@ Pick one from l2|cosine|innerProduct or support other one (see https://github.co
     ) {
 ```    
 
+## Test
+This project support static code analysis with PHP Linter, Rector PHP, PHPStan and testing with phpunit.  
+Find below useful commands.
+
+**Run all tests:** \
+`cd ./app/src && composer test`
+
+Run PHP Linter \
+`cd ./app/src && composer lint`
+
+Run Rector PHP \
+`cd ./app/src && composer refactor process`
+
+Run PHPStan: \
+`cd ./app/src && composer test:types`
+
+Run phpunit: \
+`cd ./app/src && composer test:unit`
+
 ## 📚 Resources
 
 - Dataset: "Website Classification" by Hetul Mehta on [Kaggle](https://www.kaggle.com/datasets/hetulmehta/website-classification)

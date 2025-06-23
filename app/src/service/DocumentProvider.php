@@ -42,13 +42,14 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
     /**
      * Sometimes its worth to use efficient algorithm for querying vector DB and more precise to rerank chosen documents in
      *
-     * @return string[][]
+     * @param  string[][]  $documents
+     * @return string[]
      */
     public function rerank(string $prompt, array $documents): array
     {
         $documentsReranked = [];
         foreach ($documents as $document) {
-            $intersection = array_intersect(explode(' ', (string) $document['text']), explode(' ', $prompt));
+            $intersection = array_intersect(explode(' ', $document['text']), explode(' ', $prompt));
             $index = count($intersection);
             while (isset($documentsReranked[$index])) {
                 $index++;

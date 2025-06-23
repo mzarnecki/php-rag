@@ -11,9 +11,9 @@ final class PromptResolver implements StageInterface
 {
     public function getPromptFromInput(): string
     {
-        $argv = [];
         $prompt = $_POST['prompt'] ?? null;
         if (! $prompt) {
+            global $argv;
             $prompt = $argv[0] ?? null;
         }
         if (! $prompt) {

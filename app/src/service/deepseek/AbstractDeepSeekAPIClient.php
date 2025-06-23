@@ -27,9 +27,9 @@ abstract class AbstractDeepSeekAPIClient
     }
 
     /**
-     * @param  string[]  $messages
+     * @param  string[][]  $messages
      * @param  string[]  $options
-     * @return string[]
+     * @return string[][][][]
      *
      * @throws \JsonException
      */

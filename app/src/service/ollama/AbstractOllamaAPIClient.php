@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 abstract class AbstractOllamaAPIClient
 {
-    protected function request(string $input)
+    protected function request(string $input): string
     {
         // get response
         $client = new Client();
@@ -25,20 +25,23 @@ abstract class AbstractOllamaAPIClient
         error_log("\n\n##### INPUT: \n".$prompt."\n##### RESPONSE:\n");
         $body = $this->request($input);
 
-        $rows = preg_split('/\n/', (string) $body);
+        $rows = preg_split('/\n/', $body);
         $response = array_map(function ($item) {
-            $row = json_decode($item, true, 512, JSON_THROW_ON_ERROR);
+            $row = json_decode((string) $item, true, 512, JSON_THROW_ON_ERROR);
             if ($row) {
                 return $row['response'];
             }
 
             return '';
-        }, $rows);
+        }, (array) $rows);
 
         return implode('', $response);
     }
 
     abstract protected function getEndpoint(): string;
 
+    /**
+     * @return string[]
+     */
     abstract protected function getBodyParams(string $input): array;
 }

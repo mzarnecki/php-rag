@@ -39,7 +39,7 @@ final class DocumentLoader extends AbstractDocumentRepository
             }
 
             foreach ($responseDocumentsChunks as $chunk) {
-                $this->insertDocument($file, $document, $chunk);
+                $this->insertDocument((string) $file, $document, $chunk);
             }
             $this->showProgress($index, $total, $skipFirstN);
         }

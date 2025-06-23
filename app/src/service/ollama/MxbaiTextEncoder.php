@@ -24,7 +24,7 @@ final class MxbaiTextEncoder extends AbstractOllamaAPIClient implements StageInt
 
         foreach ($chunks as $chunk) {
             $response = $this->request($chunk);
-            $embeddings[] = json_encode(json_decode((string) $response, true, 512, JSON_THROW_ON_ERROR)['embedding'], JSON_THROW_ON_ERROR);
+            $embeddings[] = json_encode(json_decode($response, true, 512, JSON_THROW_ON_ERROR)['embedding'], JSON_THROW_ON_ERROR);
         }
 
         return $embeddings;

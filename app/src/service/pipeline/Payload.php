@@ -10,8 +10,10 @@ final class Payload
 
     private string $embeddingPrompt;
 
+    /** @var string[] */
     private array $similarDocuments;
 
+    /** @var string[] */
     private array $similarDocumentsNames;
 
     private string $ragPrompt;
@@ -42,11 +44,18 @@ final class Payload
         return $this;
     }
 
+    /**
+     * @return string[]
+     */
     public function getSimilarDocuments(): array
     {
         return $this->similarDocuments;
     }
 
+    /**
+     * @param  string[]  $similarDocuments
+     * @return $this
+     */
     public function setSimilarDocuments(array $similarDocuments): self
     {
         $this->similarDocuments = $similarDocuments;
@@ -54,11 +63,18 @@ final class Payload
         return $this;
     }
 
+    /**
+     * @return string[]
+     */
     public function getSimilarDocumentsNames(): array
     {
         return $this->similarDocumentsNames;
     }
 
+    /**
+     * @param  string[]  $similarDocumentsNames
+     * @return $this
+     */
     public function setSimilarDocumentsNames(array $similarDocumentsNames): self
     {
         $this->similarDocumentsNames = $similarDocumentsNames;

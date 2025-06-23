@@ -30,7 +30,7 @@ abstract class AbstractClaudeAPIClient
     }
 
     /**
-     * @return string[]
+     * @return string[][][]
      *
      * @throws \JsonException
      */
