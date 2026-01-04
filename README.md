@@ -101,7 +101,7 @@ The application demonstrates an interesting use case of distinguishing between t
    ```
    > Note: In case of using API access to LLM (other option than Ollama) run `docker-compose -f docker-compose-llm-api.yaml up` to avoid waisting time on downloading models to local env. 
 
-   > Note: Initial document transformation may take long time. As default only part of documents is loaded. To process all documents, modify `$skipFirstN` in `app/src/service/DocumentLoader.php:20`.
+   > Note: Initial document transformation may take long time. As default only part of documents is loaded. To process all documents, modify `$skippedDocumentsNumber` in `app/src/loadDocuments.php:17`.
 
 5. **Access Application**
     - Wait for the setup completion message:
