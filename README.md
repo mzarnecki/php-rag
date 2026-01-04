@@ -182,7 +182,7 @@ Second evaluator is a criteria evaluator which pass prompt and generated answer 
 - creativity : (Optional) Is the response innovative or insightful?
 
 ```php
-        $criteriaEvaluator = new CriteriaEvaluator();
+        $criteriaEvaluator = new CriteriaEvaluator($generatedTextProvider);
         $tokenSimilarityEvaluator = new StringComparisonEvaluator();
         $compareResp = "Is Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
         Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.
