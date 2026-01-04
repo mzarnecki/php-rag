@@ -27,6 +27,6 @@ class TextSplitterTest extends TestCase
 
     public function getLoremIpsum(): string
     {
-        return file_get_contents(__DIR__.'/lorem-ipsum.txt');
+        return (string) file_get_contents(__DIR__.'/lorem-ipsum.txt');
     }
 }

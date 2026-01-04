@@ -16,8 +16,8 @@ abstract class AbstractClaudeAPIClient
     public function __construct()
     {
         // Load environment variables
-        if (!isset($_ENV['ANTHROPIC_API_KEY'])) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
+        if (! isset($_ENV['ANTHROPIC_API_KEY'])) {
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
             $dotenv->load();
         }
 

@@ -15,8 +15,8 @@ abstract class AbstractDeepSeekAPIClient
 
     public function __construct()
     {
-        if (!isset($_ENV['DEEPSEEK_API_KEY'])) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
+        if (! isset($_ENV['DEEPSEEK_API_KEY'])) {
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
             $dotenv->load();
         }
 

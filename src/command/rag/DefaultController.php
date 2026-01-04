@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace command\rag;
 
-use app\src\service\gpt\Ada002TextEncoder;
-use app\src\service\gpt\GeneratedTextFromGPTProvider;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use Minicli\Command\CommandController;
 use service\DocumentProvider;
+use service\openai\Ada002TextEncoder;
+use service\openai\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
+use service\TextSplitter;
 
 use function Laravel\Prompts\spin;
 use function Laravel\Prompts\textarea;
@@ -43,7 +44,7 @@ final class DefaultController extends CommandController
         $_POST['prompt'] = $question;
 
         $promptResolver = new PromptResolver();
-        $textEncoder = new Ada002TextEncoder();
+        $textEncoder = new Ada002TextEncoder(new TextSplitter());
         $documentProvider = new DocumentProvider();
         $ragPromptProvider = new RAGPromptProvider();
         $generatedTextProvider = new GeneratedTextFromGPTProvider();

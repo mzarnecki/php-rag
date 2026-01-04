@@ -34,6 +34,7 @@ final class GeneratedTextFromGeminiProvider extends AbstractGeminiAPIClient impl
     public function setModel(string $model): self
     {
         $this->model = $model;
+
         return $this;
     }
 

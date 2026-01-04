@@ -7,8 +7,8 @@ use service\GeneratedTextProviderInterface;
 class CriteriaEvaluator
 {
     public function __construct(
-        private readonly  GeneratedTextProviderInterface $textProvider
-    ){
+        private readonly GeneratedTextProviderInterface $textProvider
+    ) {
     }
 
     public function evaluate(string $prompt, string $answer): string

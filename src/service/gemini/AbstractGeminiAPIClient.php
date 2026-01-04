@@ -16,8 +16,8 @@ abstract class AbstractGeminiAPIClient
     public function __construct()
     {
         // Load environment variables
-        if (!isset($_ENV['GOOGLE_GEMINI_API_KEY'])) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
+        if (! isset($_ENV['GOOGLE_GEMINI_API_KEY'])) {
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
             $dotenv->load();
         }
 

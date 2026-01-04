@@ -14,8 +14,8 @@ abstract class AbstractGPTAPIClient
 
     public function __construct()
     {
-        if (!isset($_ENV['OPENAI_API_KEY'])) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
+        if (! isset($_ENV['OPENAI_API_KEY'])) {
+            $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
             $dotenv->load();
         }
 

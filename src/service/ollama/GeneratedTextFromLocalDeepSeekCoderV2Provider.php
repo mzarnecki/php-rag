@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace service\ollama;
@@ -14,6 +15,7 @@ final class GeneratedTextFromLocalDeepSeekCoderV2Provider extends AbstractOllama
     public function setModel(string $model): self
     {
         $this->model = $model;
+
         return $this;
     }
 

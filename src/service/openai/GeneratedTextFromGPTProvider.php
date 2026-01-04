@@ -34,6 +34,7 @@ final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient implements
     public function setModel(string $model): self
     {
         $this->model = $model;
+
         return $this;
     }
 

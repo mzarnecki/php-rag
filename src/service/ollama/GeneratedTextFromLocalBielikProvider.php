@@ -40,6 +40,7 @@ final class GeneratedTextFromLocalBielikProvider extends AbstractOllamaAPIClient
     public function setModel(string $model): self
     {
         $this->model = $model;
+
         return $this;
     }
 }

@@ -28,6 +28,7 @@ final class GeneratedTextFromDeepSeekProvider extends AbstractDeepSeekAPIClient 
     public function setModel(string $model): self
     {
         $this->model = $model;
+
         return $this;
     }
 
