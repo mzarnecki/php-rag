@@ -1,6 +1,0 @@
-parameters:
-    level: 8
-    paths:
-        - service
-
-    reportUnmatchedIgnoredErrors: true

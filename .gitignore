@@ -1,5 +1,5 @@
 vendor/
 .idea/
-app/src/logs/
+src/logs/
 /ollama/
-app/src/.env
+.env

@@ -9,7 +9,7 @@ A Retrieval Augmented Generation application that combines the power of Large La
 1. [Overview](#-overview)
 2. [Features](#-features)
 3. [Prerequisites](#-prerequisites)
-4. [Installation](#️-installation)
+4. [Installation](#-installation)
 5. [Usage](#-usage)
    - [Web Interface](#web-interface)
    - [API Endpoint](#api-endpoint)
@@ -28,7 +28,7 @@ A Retrieval Augmented Generation application that combines the power of Large La
 
 ## 🎯 Overview
 
-This application leverages OpenAI's GPT-4 and other LLMs to generate contextually relevant responses based on user input. It searches through a database of over 1,000 websites to provide accurate information, with special handling for disambiguating between entities with identical names. It can be used for semantic search and context aware question-answering for any text dataset. 
+This application leverages OpenAI's GPT-5 and other LLMs to generate contextually relevant responses based on user input. It searches through a database of over 1,000 websites to provide accurate information, with special handling for disambiguating between entities with identical names. It can be used for semantic search and context aware question-answering for any text dataset. 
 
 The application demonstrates an interesting use case of distinguishing between two different people named "Michał Żarnecki" in different contexts, showcasing the power of context-aware information retrieval.
 
@@ -36,13 +36,15 @@ The application demonstrates an interesting use case of distinguishing between t
 
 ## 🚀 Features
 
-- Multiple LLM support (GPT-4, Claude-3.5, Llama3.2,  Bielik, Gemini2)
+- Multiple LLM support (GPT-5, Claude-3.5, Llama3.2,  Bielik, Gemini2)
 - Vector database for efficient information retrieval
 - Web interface, API endpoints, and CLI access
 - Context-aware response generation
 - Docker-based setup for easy deployment
 
 ## 🧠 Supported models
+- gpt-5
+- gpt-5-mini
 - gpt-4.1
 - o3
 - o4-mini
@@ -64,15 +66,13 @@ The application demonstrates an interesting use case of distinguishing between t
 ## 🛠️ Installation
 
 1. **Install Dependencies**
-   ```bash
-   cd app/src && composer install
-   ```
+   `composer install`
 
 2. **Configure Environment**
-    - Copy `.env-sample` to `.env` in `app/src`
+    - Copy `.env-sample` to `.env` in the project root
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options:GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2
+      MODEL=<model-option>  # Options:GPT-5, GPT-5-mini, GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2
       ```
 
 3. **API Configuration**
@@ -101,7 +101,7 @@ The application demonstrates an interesting use case of distinguishing between t
    ```
    > Note: In case of using API access to LLM (other option than Ollama) run `docker-compose -f docker-compose-llm-api.yaml up` to avoid waisting time on downloading models to local env. 
 
-   > Note: Initial document transformation may take long time. As default only part of documents is loaded. To process all documents, modify `$skippedDocumentsNumber` in `app/src/loadDocuments.php:17`.
+   > Note: Initial document transformation may take time. To process all documents, modify `$skippedDocumentsNumber` in `bin/loadDocuments.php:17`.
 
 5. **Access Application**
     - Wait for the setup completion message:
@@ -165,7 +165,7 @@ They are not the best solution as they are based on tokens appearance comparison
 - ROUGE
 - BLEU
 
-Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-4o model and ask for 1-5 points evaluation in criteria:
+Second evaluator is a criteria evaluator which pass prompt and generated answer to GPT-5 model and ask for 1-5 points evaluation in criteria:
 - correctness: Is the answer accurate, and free of mistakes?
 - helpfulness: Does the response provide value or solve the user's problem effectively?
 - relevance: Does the answer address the question accurately?
@@ -248,9 +248,9 @@ docker-compose up
 ```
 
 ## 🎚 Customize
-- Use different LLMs. \
-You can pick from available LLMs: `GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2` \
-For using other ones you can just modify model name in LLM client class for model provider, for example `app/src/service/openai/GeneratedTextFromGPTProvider.php:13`
+- Use different LLMs.  
+  You can pick from available LLMs: `GPT-5, GPT-5-mini, GPT-4.1, o3, o4-mini, GPT-4o, Claude-3.5, Claude-3.7 Llama3.2, Mixtral, Bielik, Gemini2, DeepSeek, DeepSeek-R1-7B, DeepSeek-Coder-v2` \
+For using other ones you can just modify model name in LLM client class for model provider, for example `src/service/openai/GeneratedTextFromGPTProvider.php:13`
 ```php
     final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient
         implements StageInterface, GeneratedTextProviderInterface
@@ -258,11 +258,11 @@ For using other ones you can just modify model name in LLM client class for mode
         private string $model = 'o3';
 ```
 - Use different embeddings model. \
-Modify `app/src/loadDocuments.php:13` and `app/src/process.php:20`. \
+Modify `bin/loadDocuments.php:13` and `public/process.php:20`. \
 Put there one of classes that implement `TextEncoderInterface` or create yours that satisfies interface.\
 Embedding size can have impact on text matching precision. 
 - Modify system prompt. \
-Modify system prompt text in `\service\PromptResolver::getSystemPrompt()`. \
+Modify system prompt text in `src\service\PromptResolver::getSystemPrompt()`. \
 You can add there additional instructions, example solutions (one-shot/few-shot) or some patterns of reasoning (chain of thought).
 ```php
     private function getSystemPrompt(): string
@@ -283,7 +283,7 @@ Change `$limit` in `DocumentProvider::getSimilarDocuments()`
 ```
 - Use reranking. \
 If too many documents are passed to LLM it may focus on wrong information. If number is too small on the other hand it's possible to miss most important sources.\
-Set `Payload::$useReranking` to `True` in `app/src/process.php:25`.
+Set `Payload::$useReranking` to `True` in `public/process.php:25`.
 - Use different text matching algorithm. \
 Change `$distanceFunction` in `DocumentProvider::getSimilarDocuments()`. \
 Pick one from l2|cosine|innerProduct or support other one (see https://github.com/pgvector/pgvector, section "Quering").
@@ -302,19 +302,19 @@ This project support static code analysis with PHP Linter, Rector PHP, PHPStan a
 Find below useful commands.
 
 **Run all tests:** \
-`cd ./app/src && composer test`
+`composer test`
 
 Run PHP Linter \
-`cd ./app/src && composer lint`
+`composer lint`
 
 Run Rector PHP \
-`cd ./app/src && composer refactor process`
+`composer refactor process`
 
 Run PHPStan: \
-`cd ./app/src && composer test:types`
+`composer test:types`
 
 Run phpunit: \
-`cd ./app/src && composer test:unit`
+`composer test:unit`
 
 ## 📚 Resources
 
@@ -339,7 +339,7 @@ Run phpunit: \
    ```bash
    ollama serve
    ```
-5. Use `MxbaiTextEncoder.php` class in `app/src/loadDocuments.php`
+5. Use `MxbaiTextEncoder.php` class in `bin/loadDocuments.php`
 
 ## 👥 Contributing
 

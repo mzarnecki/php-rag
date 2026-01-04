@@ -7,12 +7,12 @@ version: 2
 
 updates:
   - package-ecosystem: "github-actions"
-    directory: "app/src"
+    directory: "src"
     schedule:
       interval: "weekly"
 
   - package-ecosystem: "composer"
-    directory: "app/src"
+    directory: "src"
     schedule:
       interval: "weekly"
     versioning-strategy: "increase"
