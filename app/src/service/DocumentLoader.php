@@ -25,7 +25,7 @@ final class DocumentLoader extends AbstractDocumentRepository
             }
             $document = (string) file_get_contents($path.'/'.$file);
             //cut document to tokens limit 8192
-            if (str_word_count($document) >= 0.75 * 8000) {
+            if (preg_match_all('/\p{L}+/u', $document) >= 0.75 * 8000) {
                 $words = explode(' ', $document);
                 $document = implode(' ', array_slice($words, 0, 6000));
             }

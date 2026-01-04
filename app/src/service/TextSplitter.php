@@ -10,12 +10,12 @@ class TextSplitter
     public function splitDocumentIntoChunks(string $document, int $chunkSize, int $overlap): array
     {
         $chunks = [];
-        $length = strlen($document);
+        $length = mb_strlen($document, 'UTF-8');
         $start = 0;
 
         while ($start < $length) {
             $end = min($start + $chunkSize, $length);
-            $chunks[] = substr($document, $start, $end - $start);
+            $chunks[] = mb_substr($document, $start, $end - $start, 'UTF-8');
             $start += ($chunkSize - $overlap);
         }
 
