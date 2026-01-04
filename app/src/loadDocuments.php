@@ -14,4 +14,4 @@ $textEncoder = (new ServicesForSpecificModelFactory())->getEmbeddingsService($mo
 $documentLoader = new DocumentLoader($textEncoder);
 
 //load documents
-$documentLoader->loadDocuments();
+$documentLoader->loadDocuments(1330); //replace this to skip N documents for debugging

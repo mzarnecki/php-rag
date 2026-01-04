@@ -7,28 +7,27 @@ namespace service;
 final class DocumentLoader extends AbstractDocumentRepository
 {
     public function __construct(
-        private readonly TextEncoderInterface $textEncoder
+        private readonly TextEncoderInterface $textEncoder,
+        private readonly DocumentTrimmer $documentTrimmer
     ) {
         parent::__construct();
     }
 
-    public function loadDocuments(): void
+    public function loadDocuments(int $skippedDocumentsNumber = 0): void
     {
         $path = __DIR__.'/../documents';
         $files = array_diff((array) scandir($path), ['.', '..']);
         $total = count($files);
 
-        $skipFirstN = 1330; //replace this to skip N documents for debugging
         foreach ($files as $index => $file) {
-            if ($index < $skipFirstN) {
+            if ($index < $skippedDocumentsNumber) {
                 continue;
             }
             $document = (string) file_get_contents($path.'/'.$file);
+
             //cut document to tokens limit 8192
-            if (preg_match_all('/\p{L}+/u', $document) >= 0.75 * 8000) {
-                $words = explode(' ', $document);
-                $document = implode(' ', array_slice($words, 0, 6000));
-            }
+            $document = $this->documentTrimmer->trim($document);
+
             //load documents to postgres database
             try {
                 $responseDocumentsChunks = $this->textEncoder->getEmbeddings($document);
@@ -41,7 +40,7 @@ final class DocumentLoader extends AbstractDocumentRepository
             foreach ($responseDocumentsChunks as $chunk) {
                 $this->insertDocument((string) $file, $document, $chunk);
             }
-            $this->showProgress($index, $total, $skipFirstN);
+            $this->showProgress($index, $total, $skippedDocumentsNumber);
         }
         fwrite(STDOUT, "Loading documents complete\n");
     }
