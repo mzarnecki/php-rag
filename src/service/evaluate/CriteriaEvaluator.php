@@ -2,22 +2,21 @@
 
 namespace service\evaluate;
 
-use service\claude\AbstractClaudeAPIClient;
+use service\GeneratedTextProviderInterface;
 
-class CriteriaEvaluator extends AbstractClaudeAPIClient
+class CriteriaEvaluator
 {
-    private string $model = 'claude-3-5-sonnet-20241022';
+    public function __construct(
+        private readonly  GeneratedTextProviderInterface $textProvider
+    ){
+    }
 
     public function evaluate(string $prompt, string $answer): string
     {
         $prompt = $this->getEvaluationPrompt($prompt, $answer);
-        $response = $this->request(
-            $prompt,
-            'messages',
-            $this->model
-        );
+        $response = $this->textProvider->generateText($prompt);
 
-        return $response['content'][0]['text'];
+        return $response;
     }
 
     private function getEvaluationPrompt(string $prompt, string $answer): string

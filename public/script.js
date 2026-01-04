@@ -3,7 +3,10 @@ $(function(){
         var $form = $(this);
         $.ajax({
             type: "POST",
-            data: {'prompt': $form.find('textarea').val()},
+            data: {
+                'prompt': $form.find('textarea').val(),
+                'evaluate': $form.find('input[name="evaluate"]').is(':checked') ? '1' : '0'
+            },
             url: $form.attr('action'),
             success: function (data) {
                 $("#response .data").html(

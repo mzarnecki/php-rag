@@ -12,7 +12,7 @@ final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient implements
 {
     private string $model = 'gpt-5-mini';
 
-    public function generateText(string $prompt, string $sourceDocuments): string
+    public function generateText(string $prompt, string $sourceDocuments = ''): string
     {
         // prepare API input
         $input = $sourceDocuments."\n\n##### INPUT: \n".$prompt."\n##### RESPONSE:\n";

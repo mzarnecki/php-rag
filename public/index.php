@@ -63,11 +63,11 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <form method="post" action="process.php?api=1&evaluate=1">
+    <form method="post" action="process.php?api=1">
         <label><h1> Find answer in websites database using LLM</h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5" placeholder="Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer."></textarea>
-        <input type="checkbox" name="evaluate" value="1" /><label>Run evaluation</label>
+        <input type="checkbox" name="evaluate" value="1"/><label>Run evaluation</label>
         <br /><br />
         <button type="submit">Generate text</button>
     </form>

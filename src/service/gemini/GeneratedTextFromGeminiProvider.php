@@ -10,7 +10,7 @@ final class GeneratedTextFromGeminiProvider extends AbstractGeminiAPIClient impl
 {
     private string $model = 'gemini-2.0-flash-exp';
 
-    public function generateText(string $prompt, string $sourceDocuments): string
+    public function generateText(string $prompt, string $sourceDocuments = ''): string
     {
         // Prepare the content
         $content = $sourceDocuments."\n\n##### INPUT: \n".$prompt."\n##### RESPONSE:\n";

@@ -53,7 +53,7 @@ if (isset($_GET['api'])) {
 $evaluate = $_POST['evaluate'] ?? $_GET['evaluate'] ?? null;
 
 if ($evaluate) {
-    $criteriaEvaluator = new CriteriaEvaluator();
+    $criteriaEvaluator = new CriteriaEvaluator($generatedTextProvider);
     $tokenSimilarityEvaluator = new StringComparisonEvaluator();
     $compareResp = 'Michał Żarnecki programmer is not the same person as Michał Żarnecki audio engineer. 
         Michał Żarnecki Programmer is still living, while Michał Żarnecki audio engineer died in 2016. They cannot be the same person.

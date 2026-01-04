@@ -10,7 +10,7 @@ final class GeneratedTextFromClaudeProvider extends AbstractClaudeAPIClient impl
 {
     private string $model = 'claude-3-7-sonnet-latest';
 
-    public function generateText(string $prompt, string $sourceDocuments): string
+    public function generateText(string $prompt, string $sourceDocuments = ''): string
     {
         // Make API request
         $response = $this->request(

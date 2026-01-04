@@ -9,7 +9,7 @@ final class GeneratedTextFromDeepSeekProvider extends AbstractDeepSeekAPIClient 
 {
     private string $model = 'deepseek-chat';
 
-    public function generateText(string $prompt, string $sourceDocuments): string
+    public function generateText(string $prompt, string $sourceDocuments = ''): string
     {
         $messages = [
             ['role' => 'system', 'content' => 'You are a helpful assistant.'],
