@@ -352,7 +352,7 @@ Your contributions make this project better for everyone!
 
 ## ✍️ About the author
 
-Built by [Michał Żarnecki](https://brightcode.pl) — ML engineer & educator, Poznań.   
+Built by [Michał Żarnecki](https://brightcode.pl) - ML engineer & educator, Poznań.   
 More RAG/LLM writeups on [Medium](https://medium.com/@michalzarnecki88), the hands-on   
 [LangChain/LangGraph agent course](https://github.com/mzarnecki/course_llm_agent_apps_with_langchain_and_langgraph),   
 or connect on [LinkedIn](https://www.linkedin.com/in/michal-zarnecki-47219355/).
